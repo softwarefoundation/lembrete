@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface LembreteRepository extends JpaRepository<Lembrete,Long> {
 
-    List<Lembrete> findByDataEventoGreaterThanEqualAndDataEventoLessThanEqual(LocalDateTime dataInicio, LocalDateTime dataFim);
+    List<Lembrete> findByDataEventoBetween(LocalDateTime dataInicio, LocalDateTime dataFim);
 
 }

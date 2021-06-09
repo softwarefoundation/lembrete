@@ -1,4 +1,4 @@
-package com.lembrete.dto.lembrete;
+package com.lembrete.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lembrete.entity.Lembrete;
@@ -14,16 +14,16 @@ import java.time.LocalDateTime;
 @Data
 public class LembreteDto implements DtoToEntityConverter<Lembrete> {
 
-    @NotNull(message = "O título do lembrete é obrigatório")
-    @Length(min = 10, max = 30, message = "O título deve ter no mínimo {min} e no máximo {max} caracteres")
+    @NotNull
+    @Length(min = 10, max = 30)
     private String titulo;
 
-    @NotNull(message = "O texto do lembrete é obrigatório")
-    @Length(min = 10, max = 50, message = "O texto deve ter no mínimo {min} e no máximo {max} caracteres")
+    @NotNull
+    @Length(min = 10, max = 50)
     private String texto;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm", locale = "pt-BR", timezone = "America/Araguaina")
-    @Future(message = "A data do evento deve ser posterior a data atual")
+    @Future
     private LocalDateTime dataEvento;
 
     @Override

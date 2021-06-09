@@ -1,19 +1,17 @@
 package com.lembrete.controller;
 
-import com.lembrete.dto.lembrete.LembreteDto;
+import com.lembrete.dto.LembreteDto;
+import com.lembrete.dto.LembreteTituloDto;
 import com.lembrete.entity.Lembrete;
 import com.lembrete.service.LembreteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -53,9 +51,9 @@ public class LembreteController {
         return ResponseEntity.status(HttpStatus.OK).body(lembrete);
     }
 
-    @PatchMapping("/{id}/titulo")
-    public ResponseEntity<?> atualizarTituloLembrete(@PathVariable Long id, @RequestBody LembreteDto lembreteDto) {
-        Lembrete lembrete = lembreteService.atualizarTitulo(id, lembreteDto.toEntity());
+    @PatchMapping("/{id}/data-evento")
+    public ResponseEntity<?> atualizarTituloLembrete(@PathVariable Long id, @RequestBody LembreteTituloDto lembreteDto) {
+        Lembrete lembrete = lembreteService.atualizarDataEvento(id, lembreteDto.toEntity());
         return ResponseEntity.status(HttpStatus.OK).body(lembrete);
     }
 

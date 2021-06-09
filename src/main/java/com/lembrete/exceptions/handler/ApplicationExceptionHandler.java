@@ -1,20 +1,28 @@
 package com.lembrete.exceptions.handler;
 
 import com.lembrete.exceptions.RegistroNaoEncotradoException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.util.WebUtils;
 
 @ControllerAdvice
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @Autowired
+    private MessageSource messageSource;
 
     @ExceptionHandler({RegistroNaoEncotradoException.class})
     public ResponseEntity<?> handleRegistroNaoEncotradoException(RegistroNaoEncotradoException ex) {
@@ -29,7 +37,13 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
 
         ProblemDetail problemDetail = createProblemDetail(ProblemDetailEnum.INFORMACAO_INVALIDA);
-        ex.getBindingResult().getAllErrors().forEach(e -> problemDetail.getDetail().add(e.getDefaultMessage()));
+        //ex.getBindingResult().getAllErrors().forEach(e -> problemDetail.getDetail().add(e.getDefaultMessage()));
+        for(FieldError fieldError : ex.getBindingResult().getFieldErrors()){
+            String error = messageSource.getMessage( fieldError , LocaleContextHolder.getLocale());
+            System.out.println("ERROR: "+error);
+        }
+
+        ex.getBindingResult().getFieldErrors().forEach(fieldError -> problemDetail.getDetail().add(messageSource.getMessage( fieldError , LocaleContextHolder.getLocale())));
         return createResponseEntity(problemDetail, ex, headers, request);
 
     }

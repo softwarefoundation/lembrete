@@ -1,14 +1,16 @@
 package com.lembrete.entity;
 
-import com.lembrete.dto.lembrete.LembreteDto;
+import com.lembrete.dto.LembreteDto;
 import com.lembrete.util.conveter.EntityToDtoConverter;
 import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
 import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
+@DynamicUpdate
 @Entity
 @Table(name = "tb01_lembrete")
 public class Lembrete implements EntityToDtoConverter<LembreteDto> {

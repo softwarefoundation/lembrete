@@ -1,6 +1,6 @@
 package com.lembrete.service.impl;
 
-import com.lembrete.dto.lembrete.LembreteDto;
+import com.lembrete.dto.LembreteDto;
 import com.lembrete.entity.Lembrete;
 import com.lembrete.exceptions.RegistroNaoEncotradoException;
 import com.lembrete.respository.LembreteRepository;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class LembreteServiceImpl implements LembreteService {
 
     @Override
     public List<Lembrete> pesquisarLembretePorDataDoEvento(LocalDateTime dataInicio, LocalDateTime dataFim) {
-        List<Lembrete> lembretes = lembreteRepository.findByDataEventoGreaterThanEqualAndDataEventoLessThanEqual(dataInicio,dataFim);
+        List<Lembrete> lembretes = lembreteRepository.findByDataEventoBetween(dataInicio,dataFim);
         String msg = MessageFormat.format("Nenhum registro localizado para as datas informadas, inicio: {0} e  fim: {1}", dataInicio, dataFim);
         Assert.isNotEmpty(lembretes, () -> new RegistroNaoEncotradoException(msg));
         return lembretes;
@@ -46,9 +45,9 @@ public class LembreteServiceImpl implements LembreteService {
     }
 
     @Override
-    public Lembrete atualizarTitulo(Long id, Lembrete lembrete) {
+    public Lembrete atualizarDataEvento(Long id, Lembrete lembrete) {
         Lembrete lembreteRetorno = pesquisar(id);
-        lembreteRetorno.setTitulo(lembrete.getTitulo());
+        lembreteRetorno.setDataEvento(lembrete.getDataEvento());
         return lembreteRepository.save(lembreteRetorno);
     }
 
