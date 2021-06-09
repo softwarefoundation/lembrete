@@ -1,7 +1,7 @@
 package com.agenda.dto;
 
+import com.agenda.entity.Anotacao;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.agenda.entity.Lembrete;
 import com.agenda.util.conveter.DtoToEntityConverter;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Data
-public class LembreteDto implements DtoToEntityConverter<Lembrete> {
+public class AnotacaoDto implements DtoToEntityConverter<Anotacao> {
 
     @NotNull
     @Length(min = 10, max = 30)
@@ -27,7 +27,7 @@ public class LembreteDto implements DtoToEntityConverter<Lembrete> {
     private LocalDateTime dataEvento;
 
     @Override
-    public Lembrete toEntity() {
-        return new ModelMapper().map(this, Lembrete.class);
+    public Anotacao toEntity() {
+        return new ModelMapper().map(this, Anotacao.class);
     }
 }

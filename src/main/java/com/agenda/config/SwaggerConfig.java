@@ -33,7 +33,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title(applicationName)
-                .description("Lembretes API - Documentação de acesso aos endpoints.").version(profile.concat(" " +appVersion))
+                .description(applicationName + " - Documentação de acesso aos endpoints").version(profile.concat(" " +appVersion))
                 .license("Apache License Version 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
                 .contact(contact())

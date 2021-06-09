@@ -1,6 +1,6 @@
 package com.agenda.entity;
 
-import com.agenda.dto.LembreteDto;
+import com.agenda.dto.AnotacaoDto;
 import com.agenda.util.conveter.EntityToDtoConverter;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @Data
 @DynamicUpdate
 @Entity
-@Table(name = "tb01_lembrete")
-public class Lembrete implements EntityToDtoConverter<LembreteDto> {
+@Table(name = "tb01_anotacao")
+public class Anotacao implements EntityToDtoConverter<AnotacaoDto> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class Lembrete implements EntityToDtoConverter<LembreteDto> {
     }
 
     @Override
-    public LembreteDto toDto() {
-        return new ModelMapper().map(this, LembreteDto.class);
+    public AnotacaoDto toDto() {
+        return new ModelMapper().map(this, AnotacaoDto.class);
     }
 }
