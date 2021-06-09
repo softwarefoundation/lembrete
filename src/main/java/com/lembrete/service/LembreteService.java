@@ -1,20 +1,23 @@
 package com.lembrete.service;
 
-import com.lembrete.dto.lembrete.LembretePersistDto;
+import com.lembrete.dto.lembrete.LembreteDto;
 import com.lembrete.entity.Lembrete;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 public interface LembreteService {
 
     Lembrete salvar(Lembrete lembrete);
 
-    Optional<Lembrete> pesquisarPorId(Long id);
+    Lembrete pesquisar(Long id);
 
-    Lembrete atualizar(LembretePersistDto lembreteDto);
+    List<Lembrete> pesquisarLembretePorDataDoEvento(LocalDateTime dataInicio, LocalDateTime dataFim);
 
-    Lembrete atualizarTitulo(LembretePersistDto lembreteDto);
+    Lembrete atualizar(LembreteDto lembreteDto);
+
+    Lembrete atualizarTitulo(Long id, Lembrete lembrete);
 
     List<Lembrete> listarLembreteTodos();
 

@@ -1,6 +1,6 @@
 package com.lembrete.entity;
 
-import com.lembrete.dto.lembrete.LembretePersistDto;
+import com.lembrete.dto.lembrete.LembreteDto;
 import com.lembrete.util.conveter.EntityToDtoConverter;
 import lombok.Data;
 import org.modelmapper.ModelMapper;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "tb01_lembrete")
-public class Lembrete implements EntityToDtoConverter<LembretePersistDto> {
+public class Lembrete implements EntityToDtoConverter<LembreteDto> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +23,19 @@ public class Lembrete implements EntityToDtoConverter<LembretePersistDto> {
     @Column(name = "texto")
     private String texto;
 
-    @Column(name = "data_cadastro")
+    @Column(name = "data_evento")
+    private LocalDateTime dataEvento;
+
+    @Column(name = "data_cadastro", updatable = false)
     private LocalDateTime dataCadastro;
 
+    @PrePersist
+    public void prePersist(){
+        setDataCadastro(LocalDateTime.now());
+    }
+
     @Override
-    public LembretePersistDto toDto() {
-        return new ModelMapper().map(this, LembretePersistDto.class);
+    public LembreteDto toDto() {
+        return new ModelMapper().map(this, LembreteDto.class);
     }
 }

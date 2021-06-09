@@ -6,6 +6,14 @@ import java.text.MessageFormat;
 public class RegistroNaoEncotradoException extends NoResultException {
 
     public RegistroNaoEncotradoException(Long id) {
-        super(MessageFormat.format("Registro não encontrado: {0}",id));
+        super(MessageFormat.format("Registro com código: {0} não foi localizado",id));
+    }
+
+    public RegistroNaoEncotradoException(String mensagem) {
+        super(mensagem);
+    }
+
+    public RegistroNaoEncotradoException() {
+        super("Nenhum registro localizado");
     }
 }
